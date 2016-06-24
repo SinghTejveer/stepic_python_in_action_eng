@@ -1,0 +1,16 @@
+import pytest
+
+from solutions.{{ filename }} import solve
+
+
+EXAMPLES = (
+    ('arg', 'expected'),
+    [
+        (, ),
+    ]
+)
+
+
+@pytest.mark.parametrize(*EXAMPLES)
+def test_returns_correct_result(arg, expected):
+    assert solve(arg) == expected
