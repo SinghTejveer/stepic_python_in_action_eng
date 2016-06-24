@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name
+
 """Difference of times
 
 Given the values of the two moments in time in the same day: hours, minutes
@@ -33,8 +35,6 @@ Sample Input 2:
 Sample Output 2:
     50
 """
-
-import sys
 
 
 def main():

@@ -1,3 +1,6 @@
+# pylint: disable=invalid-name, too-many-boolean-expressions,
+# pylint: disable=too-many-branches, too-many-return-statements
+
 """
 Given six real numbers – a, b, c, d, e, f. Solve the following system of linear
 equations:

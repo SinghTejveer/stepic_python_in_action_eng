@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name
+
 """Heron's formula
 
 Many years ago when Paul went to school, he did not like the Heron's formula

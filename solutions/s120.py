@@ -22,11 +22,9 @@ Sample Output 2:
 
 def main():
     num = int(input().rstrip())
-    if any([
-        -15 < num <= 12,
-        14 < num < 17,
-        19 <= num
-    ]):
+    if any([-15 < num <= 12,
+            14 < num < 17,
+            num >= 19]):
         print('True')
     else:
         print('False')

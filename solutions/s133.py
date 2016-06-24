@@ -29,7 +29,7 @@ import decimal
 
 def interest(percent, rubles, kopecks):
     deposit = decimal.Decimal(str(rubles) + '.' + str(kopecks))
-    new = deposit*percent/100
+    new = decimal.Decimal(deposit*percent/100)
     new_rounded = new.quantize(
         decimal.Decimal('.01'), rounding=decimal.ROUND_05UP)
     result = deposit + new_rounded

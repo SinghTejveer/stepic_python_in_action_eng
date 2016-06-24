@@ -31,13 +31,11 @@ def main():
     height = int(input().rstrip())
     parts = int(input().rstrip())
 
-    if any([
-        width*height < parts,
-        not width,
-        not height,
-        width < 0,
-        height < 0
-    ]):
+    if any([width*height < parts,
+            not width,
+            not height,
+            width < 0,
+            height < 0]):
         print('NO')
     elif parts % width == 0 or parts % height == 0:
         print('YES')

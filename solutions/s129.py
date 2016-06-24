@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name
+
 """
 You are given coordinates of two queens on a chess board.
 Find out, whether they hit each other or not.
@@ -33,7 +35,7 @@ Queen = namedtuple('Queen', 'x y')
 
 
 def main():
-    x1, y1, x2, y2 = map(int, input().rstrip().split())
+    x1, y1, x2, y2 = [int(arg) for arg in input().rstrip().split()]
     queen1 = Queen(x1, y1)
     queen2 = Queen(x2, y2)
 

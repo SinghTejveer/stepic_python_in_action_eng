@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name
+
 """Floor-space of the room
 
 Residents of the Malevia country often experiment with the plan of their rooms.
