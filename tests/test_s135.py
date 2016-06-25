@@ -1,12 +1,12 @@
 import pytest
 
-from solutions.{{ filename }} import solve
+from solutions.s135 import solve
 
 
 EXAMPLES = (
     ('args', 'expected'),
     [
-        (, ),
+        ([100, 2], 50.),
     ]
 )
 
