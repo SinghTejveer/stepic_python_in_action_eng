@@ -16,17 +16,6 @@ occurs annually.
 
 Note: If you are facing issues with accuracy in this problem – try to solve it
 using only integer numbers.
-
-Sample Input:
-
-    12
-    179
-    0
-    5
-
-Sample Output:
-
-    315 43
 """
 
 import decimal
