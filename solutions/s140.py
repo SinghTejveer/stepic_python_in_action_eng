@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name
+
 """
 Print the sum of all integers from a to b (a < b).
 """

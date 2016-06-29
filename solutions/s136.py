@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name
+
 """Arithmetic average
 
 Write a program that reads two numbers a and b from the keyboard, calculates

@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name
+
 """The roots of equation
 
 Given the numbers a,b,c,d. Output in ascending order all the integers between

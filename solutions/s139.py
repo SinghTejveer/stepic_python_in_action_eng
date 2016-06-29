@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name
+
 """
 In the Bioinformatics Institute a competition is held between the computer
 science and biology students. The winners will get a large and tasty pie.

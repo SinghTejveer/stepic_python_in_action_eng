@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name
+
 """Multiplication table
 
 When Paul studied at school, he memorized the multiplication table by
@@ -65,7 +67,7 @@ Sample Output 3:
 
 
 def solve(a, b, c, d):
-    matrix = ['\t' + '\t'.join(map(str, range(c, d + 1)))]
+    matrix = ['\t' + '\t'.join(str(x) for x in range(c, d + 1))]
     for i in range(a, b + 1):
         line = '%d\t' % i + '\t'.join(str(i*j) for j in range(c, d + 1))
         matrix.append(line)
