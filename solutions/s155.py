@@ -9,21 +9,6 @@ and there is no need to continue reading after this.
 In the example, we are reading numbers 1, -3, 5, -6, -10, 13; and at this
 moment, we notice that the sum of these numbers is equal to zero, therefore we
 output the sum of their squares, not paying attention to the remaining numbers.
-
-Sample Input:
-
-    1
-    -3
-    5
-    -6
-    -10
-    13
-    4
-    -8
-
-Sample Output:
-
-    340
 """
 
 import sys
