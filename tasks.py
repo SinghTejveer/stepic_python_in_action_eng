@@ -38,8 +38,10 @@ def new(ctx, number):
     solution_path = os.path.join('solutions', filename + '.py')
     test_path = os.path.join('tests', 'test_' + filename + '.py')
 
-    solution_template = render_template('solution.jinja2', {})
-    test_template = render_template('test.jinja2', {'filename': filename})
+    solution_template = render_template(
+        'solution.jinja2', {}) + '\n'
+    test_template = render_template(
+        'test.jinja2', {'filename': filename}) + '\n'
 
     if not os.path.isfile(solution_path):
         with open(solution_path, 'w') as solution:
