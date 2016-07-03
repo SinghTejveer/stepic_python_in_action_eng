@@ -8,4 +8,5 @@ py==1.4.31
 pylint==1.5.6
 pytest==2.9.2
 six==1.10.0
+typing==3.5.2.2
 wrapt==1.10.8
