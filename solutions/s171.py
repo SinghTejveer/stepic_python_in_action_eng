@@ -41,8 +41,8 @@ TO_METERS = {
 
 
 def solve(command: str) -> str:
-    value, base, _, to = command.split()
-    return '%.2e' % (float(value)*TO_METERS[base]/TO_METERS[to])
+    value, base, _, goal = command.split()
+    return '%.2e' % (float(value)*TO_METERS[base]/TO_METERS[goal])
 
 
 def main():

@@ -1,3 +1,5 @@
+# pylint: disable=invalid-sequence-index
+
 """
 Write a program which finds the percentage of students who have received the A
 grade.
