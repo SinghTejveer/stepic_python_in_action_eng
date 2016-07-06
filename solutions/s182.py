@@ -1,3 +1,5 @@
+# pylint: disable=invalid-name
+
 """
 Find the sum of two numbers.
 """

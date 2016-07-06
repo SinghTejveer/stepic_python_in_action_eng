@@ -1,3 +1,5 @@
+# pylint: disable=invalid-sequence-index
+
 """
 Input of the program is a line containing the words separated by a space.
 The program should output the information of lengths of words in the given line,
@@ -32,8 +34,8 @@ def solve(text: str) -> List[tuple]:
 def main():
     text = input().rstrip()
     result = solve(text)
-    for k, v in result:
-        print('%d: %d' % (k, v))
+    for key, value in result:
+        print('%d: %d' % (key, value))
 
 if __name__ == '__main__':
     main()
