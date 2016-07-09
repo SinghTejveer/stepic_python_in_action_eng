@@ -1,3 +1,5 @@
+# pylint: disable=invalid-sequence-index
+
 """Pairwise different summands
 
 Given an integer 1 <= n <= 109 find the maximal number k such that n can be
