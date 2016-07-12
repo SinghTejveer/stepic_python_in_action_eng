@@ -1,11 +1,11 @@
-astroid==1.4.6
+astroid==1.4.7
 colorama==0.3.7
 invoke==0.13.0
 Jinja2==2.8
 lazy-object-proxy==1.2.2
 MarkupSafe==0.23
 py==1.4.31
-pylint==1.5.6
+pylint==1.6.1
 pytest==2.9.2
 six==1.10.0
 typing==3.5.2.2
