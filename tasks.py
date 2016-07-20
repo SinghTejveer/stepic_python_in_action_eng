@@ -17,14 +17,15 @@ def render_template(template, context):
 def check_venv(ctx):
     # http://stackoverflow.com/a/1883251/2787185
     # Is virtual environment active?
-    if not hasattr(sys, 'real_prefix'):
+    pyenv = os.environ.get('PYENV_VIRTUAL_ENV', False)
+    if not hasattr(sys, 'real_prefix') and not pyenv:
         print('Activate a virtual environment before!')
         sys.exit()
 
 
 @task(check_venv)
 def tests(ctx):
-    ctx.run('python -m pytest')
+    ctx.run('python -m pytest --doctest-modules')
 
 
 @task(check_venv)

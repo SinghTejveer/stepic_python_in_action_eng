@@ -19,7 +19,7 @@ and b, each number is entered in a separate line) and should output the
 smallest number d, which is divisible by both numbers without remainder.
 """
 
-from fractions import gcd
+from math import gcd
 
 
 def solve(a, b):
