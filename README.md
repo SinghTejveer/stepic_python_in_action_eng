@@ -11,17 +11,26 @@ Code for [Stepic][1] course [Python in Action (eng)][2]
  - Inside virtual environment: `pip install -r requirements.txt`
 
 ## Utils
+
+Simple scripts to handle the project routine tasks
+
 ### Tests
 
- - `invoke tests`
+ - `invoke tests` - uses (`pytest`)
 
 ### Syntax Validation
 
- - `invoke syntax`
+ - `invoke syntax` - uses (`pylint`)
 
 ### New Solution
 
  - `invoke new 135` will create solution and test file templates for s135
+
+### Renaming
+
+ - `invoke rename` will rename all solutions and test files (imports will be
+   auto fixed), renaming logic defined in the `update_number` function inside
+   [`utils.py`](utils/utils.py)
 
  [1]: https://stepic.org/
  [2]: https://stepic.org/course/Adaptive-Python-%CE%B2-568
