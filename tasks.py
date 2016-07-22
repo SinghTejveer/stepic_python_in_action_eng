@@ -1,6 +1,7 @@
 import os
 import sys
 
+import itertools
 from invoke import task
 from jinja2 import Environment, FileSystemLoader
 
@@ -58,21 +59,29 @@ def new(ctx, number):
 
 @task
 def rename(ctx):
+    proceed = input('Are you sure? (yes/no): ')
+    if not proceed.lower() == 'yes':
+        print('Aborted...')
+        return
+
     solution_path = os.path.join('solutions')
-    test_path = os.path.join('test', 'solutions')
+    test_path = os.path.join('tests', 'solutions')
 
     print('Reading...')
     solution_files = get_files(solution_path)
-    print('-- %d solutions' % len(solution_files))
+    print('   %d solutions' % len(solution_files))
     test_files = get_files(test_path)
-    print('-- %d tests' % len(test_files))
-    print()
+    print('   %d tests' % len(test_files))
 
     print('Refactoring...')
-    print('-- solutions:', end=' ')
-    refactor(solution_path, solution_files)
+    print('   solutions:', end=' ')
+    skipped_solutions = refactor(solution_path, solution_files)
     print('DONE')
 
-    print('-- tests:', end=' ')
-    refactor(test_path, test_files)
+    print('   tests:', end=' ')
+    skipped_tests = refactor(test_path, test_files)
     print('DONE')
+
+    print('Skipped files...')
+    for skipped_file in itertools.chain(skipped_solutions, skipped_tests):
+        print('   %s' % skipped_file)

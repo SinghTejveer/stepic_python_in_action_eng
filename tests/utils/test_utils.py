@@ -54,6 +54,10 @@ class TestGetNumberFromName:
     def test_test_filename(self):
         assert get_number_from_name('test_s101') == 's101'
 
+    def test_raises_value_error_if_can_not_parse(self):
+        with pytest.raises(AttributeError):
+            get_number_from_name('__init__.py')
+
 
 class TestRefactor:
 
@@ -72,3 +76,10 @@ class TestRefactor:
         refactor(str(tmpdir), ['s101'])
         with open(os.path.join(str(tmpdir), 's002'), 'r') as file:
             assert file.read() == 's002 hello world\ns002 s102'
+
+    def test_skipped_files(self, tmpdir):
+        file_path = os.path.join(str(tmpdir), '__init__.py')
+        with open(file_path, 'w') as file:
+            file.write('# Do not touch me')
+        skipped_files = refactor(str(tmpdir), ['__init__.py'])
+        assert skipped_files == [file_path]

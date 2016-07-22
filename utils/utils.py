@@ -24,13 +24,21 @@ def update_number(number: str) -> str:
 
 
 def get_number_from_name(filename: str) -> str:
-    return re.match(NUMBER, filename).groups()[0]
+    try:
+        return re.match(NUMBER, filename).groups()[0]
+    except AttributeError:
+        raise AttributeError('Can not parse: %s' % filename)
 
 
 def refactor(path: str, files: List):
     """Refactor exercise number in files data and names"""
+    skipped = []
     for filename in files:
-        number = get_number_from_name(filename)
+        try:
+            number = get_number_from_name(filename)
+        except AttributeError:
+            skipped.append(os.path.join(path, filename))
+            continue
         new_number = update_number(number)
 
         file_path = os.path.join(path, filename)
@@ -43,3 +51,4 @@ def refactor(path: str, files: List):
             file.write(data)
 
         os.rename(file_path, new_file_path)
+    return skipped
