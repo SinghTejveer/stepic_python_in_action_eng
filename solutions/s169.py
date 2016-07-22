@@ -13,7 +13,7 @@ Write a program, which reads the two names and outputs the poem, in which these
 names are used instead of A and B.
 
 Input format:
-Two names, separated by a line break. First name should replace A, second one
+Two names, separated by a line break. First name should update_number A, second one
 – B.
 
 Output format:

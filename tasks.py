@@ -4,6 +4,8 @@ import sys
 from invoke import task
 from jinja2 import Environment, FileSystemLoader
 
+from utils.utils import get_files, refactor
+
 PATH = os.path.dirname(os.path.abspath(__file__))
 ENV = Environment(loader=FileSystemLoader(os.path.join(PATH, 'templates')))
 
@@ -37,7 +39,7 @@ def syntax(ctx):
 def new(ctx, number):
     filename = 's' + number
     solution_path = os.path.join('solutions', filename + '.py')
-    test_path = os.path.join('tests', 'test_' + filename + '.py')
+    test_path = os.path.join('tests', 'solutions', 'test_' + filename + '.py')
 
     solution_template = render_template(
         'solution.jinja2', {}) + '\n'
@@ -52,3 +54,25 @@ def new(ctx, number):
         with open(test_path, 'w') as test:
             test.write(test_template)
             print('Test file created')
+
+
+@task
+def rename(ctx):
+    solution_path = os.path.join('solutions')
+    test_path = os.path.join('test', 'solutions')
+
+    print('Reading...')
+    solution_files = get_files(solution_path)
+    print('-- %d solutions' % len(solution_files))
+    test_files = get_files(test_path)
+    print('-- %d tests' % len(test_files))
+    print()
+
+    print('Refactoring...')
+    print('-- solutions:', end=' ')
+    refactor(solution_path, solution_files)
+    print('DONE')
+
+    print('-- tests:', end=' ')
+    refactor(test_path, test_files)
+    print('DONE')
