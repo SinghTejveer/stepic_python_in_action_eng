@@ -33,7 +33,7 @@ def tests(ctx):
 
 @task(check_venv)
 def syntax(ctx):
-    ctx.run('python -m pylint solutions tests')
+    ctx.run('python -m pylint solutions utils tests')
 
 
 @task
