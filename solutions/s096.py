@@ -1,37 +1,36 @@
-# pylint: disable=invalid-sequence-index
+"""
+Given the natural number 1 <= n <= 10^5 and the array of integers A[1…n],
+not exceeding 10^9 by absolute value. Output 1, if the array A contains the
+number occurring strictly more than n/2 times, and output 0 otherwise.
 
-"""Pairwise different summands
-
-Given an integer 1 <= n <= 109 find the maximal number k such that n can be
-represented as a sum of pairwise different positive integers. In the first
-line output k, in the next line output k summands.
+Sample Input:
+5
+2 3 9 2 2
+Sample Output:
+1
 """
 
 from typing import List
 
 
-def solve(num: int) -> List[int]:
-    i = 1
-    summands = []
-    while num != 0:
-        if num <= 2*i:
-            summands.append(num)
-            num = 0
+def solve(array: List[int]) -> int:
+    array = sorted(array)
+    count = 0
+    for i, item in enumerate(array):
+        if count > len(array)/2:
+            return 1
+        elif len(array) - i <= len(array)/2 - count:  # Not enough elements
+            return 0
+        elif i == 0 or item == array[i-1]:
+            count += 1
         else:
-            summands.append(i)
-            num -= i
-        i += 1
-    return summands
+            count = 1
 
 
 def main():
-    num = int(input().rstrip())
-    result = solve(num)
-
-    print(len(result))
-    for item in result:
-        print(item, end=' ')
-
+    _ = input()
+    array = [int(item) for item in input().rstrip().split()]
+    print(solve(array))
 
 if __name__ == '__main__':
     main()

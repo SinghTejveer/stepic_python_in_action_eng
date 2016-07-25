@@ -1,45 +1,72 @@
-"""Huffman coding
+"""Huffman decoding
 
-Given non-empty string sof length not more than 104, consisting of lowercase
-letters of the Latin alphabet. Construct an optimized prefix-free code. In the
-first line output the number of various letters k, which are present in the
-string, and the size of the resulting encoded string. In the next k lines write
-letter codes in the "letter: code" format. In the last line output
-the encoded string.
+Restore the string by its code and the prefix-free code of symbols.
+
+The first line of the input file specifies the two integers k and l separated
+by a space — the amount of various characters in the string and the size of the
+resulting encoded string, accordingly. The next k lines contain letter codes in
+the "letter: code" format. None of the codes is a prefix of another one.
+Letters can be listed in any order. Letters can be only the lowercase letters
+of the Latin alphabet; each of these letters occurs in the string at least once.
+Finally, the last line contains an encoded string. The original string and the
+codes of all the letters are not empty. The specified code is that a coded
+string has the minimum possible size.
+
+In the first line of the output file output the string s. It should consist of
+the lowercase letters of the Latin alphabet. It is guaranteed that the length
+of the correct answer does not exceed 104 symbols.
 """
 
-from collections import Counter
-from heapq import heappush, heappop, heapify
+import sys
 
 
-def encode(frequency):
-    if len(frequency) == 1:
-        return [[key, '0'] for key in frequency.keys()]
+class Tree(object):
 
-    heap = [[weight, [letter, '']] for letter, weight in frequency.items()]
-    heapify(heap)
+    def __init__(self):
+        self.left = None
+        self.right = None
+        self.value = None
 
-    while len(heap) > 1:
-        left = heappop(heap)
-        right = heappop(heap)
-        for pair in left[1:]:
-            pair[1] = '0' + pair[1]
-        for pair in right[1:]:
-            pair[1] = '1' + pair[1]
-        heappush(heap, [left[0] + right[0]] + left[1:] + right[1:])
-    return heappop(heap)[1:]
+    def update(self, value, path):
+        head = self
+        for code in path:
+            if code == '0':
+                if head.left is None:
+                    head.left = Tree()
+                head = head.left
+            else:
+                if head.right is None:
+                    head.right = Tree()
+                head = head.right
+        head.value = value
+
+    def decode(self, cipher):
+        message = ''
+        head = self
+
+        for code in cipher:
+            if code == '0':
+                head = head.left
+            else:
+                head = head.right
+            if head.value:
+                message += head.value
+                head = self
+        return message
 
 
 def main():
-    text = input().rstrip()
-    letter_codes = encode(Counter(text))
-    codes_dict = {k: v for k, v in letter_codes}
-    encoded_text = ''.join(codes_dict[letter] for letter in text)
+    cipher = ''
+    tree = Tree()
 
-    print(len(codes_dict), len(encoded_text))
-    for letter, code in letter_codes:
-        print('%s: %s' % (letter, code))
-    print(encoded_text)
+    _ = input()
+    for line in sys.stdin:
+        try:
+            letter, code = line.rstrip().split(': ')
+            tree.update(letter, code)
+        except ValueError:
+            cipher = line.rstrip()
+    print(tree.decode(cipher))
 
 if __name__ == '__main__':
     main()

@@ -1,20 +1,13 @@
 """
-Input a single character and change its register. That is, if the lowercase
-letter has been entered – make it uppercase, and vice versa. Characters that
-are not Latin ones need to stay unchanged.
+Find whether the given symbol is a digit.
 
-Sample Input:
-
-b
-
-Sample Output:
-
-B
+Output "yes", is the symbol is a digit and "no" otherwise.
+Please note that you should output words in a lowercase.
 """
 
 
 def main():
-    print(input().rstrip().swapcase())
+    print('yes' if input().rstrip().isdigit() else 'no')
 
 if __name__ == '__main__':
     main()

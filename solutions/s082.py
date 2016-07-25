@@ -1,16 +1,13 @@
+# pylint: disable=invalid-name
+
 """
-Write a program, which asks the name of the user and than greets him.
-
-Enter your name: Chuck
-Hello Chuck
-
-Python 3 uses the input() function to read from the keyboard.
+Find the sum of two numbers.
 """
 
 
 def main():
-    name = input('Enter your name: ').rstrip()
-    print('Hello %s' % name)
+    a, b = [int(num) for num in input().rstrip().split()]
+    print(a + b)
 
 if __name__ == '__main__':
     main()

@@ -1,42 +1,45 @@
-# pylint: disable=invalid-sequence-index
+"""Huffman coding
 
-"""Continuous backpack
-
-First line contain the number of items 1 <= n <= 10^3 and capacity of the
-backpack 0 <= W <= 2*10^6. Each of the next n lines specifies the cost
-0 <= ci <= 2*10^6 and volume 0 < wi <= 2*10^6 of an item (n, W, ci, wi
-— integers). Output the maximum cost of parts of the items (you can separate
-any part from each item, its cost and volume will decrease proportionally),
-placed in the backpack, with an accuracy of not less than three decimal places.
+Given non-empty string sof length not more than 104, consisting of lowercase
+letters of the Latin alphabet. Construct an optimized prefix-free code. In the
+first line output the number of various letters k, which are present in the
+string, and the size of the resulting encoded string. In the next k lines write
+letter codes in the "letter: code" format. In the last line output
+the encoded string.
 """
 
-import sys
+from collections import Counter
+from heapq import heappush, heappop, heapify
 
-from typing import List
 
+def encode(frequency):
+    if len(frequency) == 1:
+        return [[key, '0'] for key in frequency.keys()]
 
-def solve(capacity: int, items: List[int]) -> float:
-    sum_cost = 0
+    heap = [[weight, [letter, '']] for letter, weight in frequency.items()]
+    heapify(heap)
 
-    for cost, volume in sorted(items, key=lambda x: x[0]/x[1], reverse=True):
-        if volume < capacity:
-            capacity -= volume
-            sum_cost += cost
-        else:
-            return sum_cost + capacity*cost/volume
-    return sum_cost
+    while len(heap) > 1:
+        left = heappop(heap)
+        right = heappop(heap)
+        for pair in left[1:]:
+            pair[1] = '0' + pair[1]
+        for pair in right[1:]:
+            pair[1] = '1' + pair[1]
+        heappush(heap, [left[0] + right[0]] + left[1:] + right[1:])
+    return heappop(heap)[1:]
 
 
 def main():
-    _, capacity = input().rstrip().split()
-    items = []
+    text = input().rstrip()
+    letter_codes = encode(Counter(text))
+    codes_dict = {k: v for k, v in letter_codes}
+    encoded_text = ''.join(codes_dict[letter] for letter in text)
 
-    for line in sys.stdin:
-        cost, volume = line.rstrip().split()
-        items.append((int(cost), int(volume)))
-
-    result = solve(int(capacity), items)
-    print('%.3f' % result)
+    print(len(codes_dict), len(encoded_text))
+    for letter, code in letter_codes:
+        print('%s: %s' % (letter, code))
+    print(encoded_text)
 
 if __name__ == '__main__':
     main()

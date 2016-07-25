@@ -1,7 +1,7 @@
 from collections import Counter
 import pytest
 
-from solutions.s094 import encode
+from solutions.s093 import encode
 
 
 EXAMPLES = (

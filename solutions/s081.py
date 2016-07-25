@@ -1,16 +1,16 @@
 """
-Write a program, which reads the line from a standard input, using the input()
-function, and outputs the same line to the standard output, using the print()
-function.
+Write a program, which asks the name of the user and than greets him.
 
-Please pay attention that you need to use the input function without any
-parameters, and that you need to output only that, what was transferred
-to the input of this program.
+Enter your name: Chuck
+Hello Chuck
+
+Python 3 uses the input() function to read from the keyboard.
 """
 
 
 def main():
-    print(input())
+    name = input('Enter your name: ').rstrip()
+    print('Hello %s' % name)
 
 if __name__ == '__main__':
     main()

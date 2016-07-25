@@ -1,42 +1,41 @@
+# pylint: disable=invalid-sequence-index
+
 """
-In the internet, each computer is assigned a four-byte code (IP address),
-which is usually written as four numbers, each of which can take the values
-from 0 to 255, separated by periods. Below are the examples of the correct
-IP addresses:
+Input of the program is a line containing the words separated by a space.
+The program should output the information of lengths of words in the given line,
+from the shortest to the longest word (see the example).
 
-127.0.0.0
-192.168.0.1
-255.0.255.255
+A word is a sequence of arbitrary characters surrounded by spaces or line
+boundaries. Note that punctuation marks also belong to a word.
 
-Write a program to determine whether the specified spring is a correct IP
-address.
+Input format:
+A string containing a sequence of Latin characters and punctuation marks,
+separated by a space.
 
-The program should take a string of arbitrary characters as input. If this
-string is a correct record of an IP address - output YES, otherwise - output NO.
+Output format:
+For each word length that appears in the original string, you need to specify
+the number of words with such length in a format:
 
-Note
+length: amount
 
-In order to convert string to number it is convenient to use the int function,
-which takes one string as an argument and returns a number.
+Output this information in the order of increasing length.
 """
 
+from collections import Counter
 
-def solve(ipv4: str) -> bool:
-    parts = ipv4.split('.')
-    if len(parts) != 4:
-        return False
-    for part in parts:
-        try:
-            if not 0 <= int(part) <= 255:
-                return False
-        except ValueError:
-            return False
-    return True
+from typing import List
+
+
+def solve(text: str) -> List[tuple]:
+    counter = Counter(len(word) for word in text.split())
+    return sorted(counter.most_common())
 
 
 def main():
-    ipv4 = input().rstrip()
-    print('YES' if solve(ipv4) else 'NO')
+    text = input().rstrip()
+    result = solve(text)
+    for key, value in result:
+        print('%d: %d' % (key, value))
 
 if __name__ == '__main__':
     main()

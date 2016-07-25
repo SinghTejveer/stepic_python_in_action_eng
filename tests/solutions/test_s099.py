@@ -2,7 +2,7 @@
 
 import pytest
 
-from solutions.s099 import (
+from solutions.s098 import (
     get_neighbors,
     get_min_available,
     solve

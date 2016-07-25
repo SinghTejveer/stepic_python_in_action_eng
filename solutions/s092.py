@@ -1,42 +1,42 @@
-"""Cover intervals with points
+# pylint: disable=invalid-sequence-index
 
-Given n intervals. Find the set of points having the minimum size (cardinality),
-for which each of the given intervals contains at least one of the points.
+"""Continuous backpack
 
-The first line given 1≤n≤100 - number of intervals. Each of the next n lines
-contains two 0<=l<=r<=109 numbers, setting the beginning and the end of
-the interval. Output the minimum size of the set m and the m points themselves.
-If there are several such sets, output any of them.
+First line contain the number of items 1 <= n <= 10^3 and capacity of the
+backpack 0 <= W <= 2*10^6. Each of the next n lines specifies the cost
+0 <= ci <= 2*10^6 and volume 0 < wi <= 2*10^6 of an item (n, W, ci, wi
+— integers). Output the maximum cost of parts of the items (you can separate
+any part from each item, its cost and volume will decrease proportionally),
+placed in the backpack, with an accuracy of not less than three decimal places.
 """
 
 import sys
-from operator import itemgetter
+
+from typing import List
 
 
-def solve(intervals):
-    dots = []
-    left = -1
+def solve(capacity: int, items: List[int]) -> float:
+    sum_cost = 0
 
-    for interval in sorted(intervals, key=itemgetter(1)):
-        if interval[0] > left:
-            dots.append(interval[1])
-            left = interval[1]
-    return dots
+    for cost, volume in sorted(items, key=lambda x: x[0]/x[1], reverse=True):
+        if volume < capacity:
+            capacity -= volume
+            sum_cost += cost
+        else:
+            return sum_cost + capacity*cost/volume
+    return sum_cost
 
 
 def main():
-    intervals = []
-    _ = input()
+    _, capacity = input().rstrip().split()
+    items = []
+
     for line in sys.stdin:
-        start, end = line.rstrip().split()
-        intervals.append((int(start), int(end)))
+        cost, volume = line.rstrip().split()
+        items.append((int(cost), int(volume)))
 
-    dots = solve(intervals)
-
-    print(len(dots))
-    for dot in dots:
-        print(dot, end=' ')
-
+    result = solve(int(capacity), items)
+    print('%.3f' % result)
 
 if __name__ == '__main__':
     main()

@@ -1,6 +1,6 @@
 import pytest
 
-from solutions.s086 import solve
+from solutions.s085 import solve
 
 
 EXAMPLES = (

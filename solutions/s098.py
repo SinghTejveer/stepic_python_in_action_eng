@@ -1,83 +1,85 @@
+# pylint: disable=invalid-name
+
 """
-Given non-negative integers n, k and array of integers from the range of
-[0..10^9] size n <= 10^6. You need to find the k-th order statistics, i.e.
-to print the number, which would reside on the position with the index k
-(0..n-1) in the sorted array. Write a non-recursive algorithm using the
-"divide and conquer" method.
+Each square of the rectangular table NxM contains some number.
 
-Requirements for the additional memory: O(n).
-Required average time complexity: O(n).
+Initially the player is located in the top left square.
 
-The Partition function should be implemented using two iterators passing in the
-single direction from the start to the end of the array:
+In one move he is allowed to move to the neighbouring cell either to the right
+or down (left and upward moves are not permitted). When passing through
+a square the player pays that amount of coins, which is written in this square
+(he must also pay coins for the first and for the last squares of his path).
 
-- Selected the reference element. The reference element is changed by the last
-  element of the array.
-- During the execution of the Partition function, the beginning of the array
-  contains the elements, which are not larger than the reference one. Next
-  placed the elements, which are strictly larger than the reference one.
-  The end of the array contains unconsidered elements.
-  The last element - reference element.
-- Iterator (index) i specifies the beginning of the elements group, which are
-  strictly larger than the reference one.
-- Iterator j is larger than i, iterator j specifies the first unconsidered
-  element.
-- Algorithm step. Consider the element, which is specified by j. If it is
-  larger than the reference element, we move j. If it is not grater than the
-  reference one, we swap a[i] and a[j], move i and move j.
-- At the end of the algorithm execution we change the reference element to the
-  one, specified by iterator i.
+You need to find the minimum number of coins, which the player needs to take
+in order to get to the bottom right corner.
 
-Sample Input:
-    10 0
-    3 6 5 7 2 9 8 10 4 1
+First line has the two numbers N и M — the size of the table (1<=N<=20,
+1<=M<=20). Next go N lines having M numbers in each — the number of coins
+to pass through the corresponding squares (integers from 0 to 100).
 
-Sample Output:
+Sample Input 1:
+    3 4
+    1 1 1 1
+    5 2 2 100
+    9 4 2 1
+Sample Output 1:
+    8
+
+Sample Input 2:
+    1 1
+    1
+Sample Output 2:
     1
 """
 
 
-def partition(array, left, right):
-    pivot = array[left]
-    j = left
-    same = 0  # Учет количества опорных
-    for i in range(left + 1, right + 1):
-        # Если следующий элемент больше опорного, то все в порядке
-        if array[i] > pivot:
-            continue
-        # Если следующий элемент равен опорному, то меняем его с местами
-        # с первым большим опорного (добавляем в цепочку опорных)
-        elif array[i] == pivot:
-            array[i], array[j + same + 1] = array[j + same + 1], array[i]
-            same += 1  # Еще один равный опорному
-        # Если следующий элемент меньше опорного
-        else:
-            # Меняем местами с первым опорным
-            array[i], array[j] = array[j], array[i]
-            j += 1
-            # Если между найденным меньшим и последним опорным есть элементы
-            # больше опорного, то последний передвинутый опорный меняем местами
-            # с первым большим опорного
-            if j + same != i:
-                array[i], array[j + same] = array[j + same], array[i]
-    return j, j + same
+def get_neighbors(index, n, m):
+    result = []
+    if (index + 1) % m != 0:
+        result.append(index + 1)  # Right
+    if index < (n - 1)*m:
+        result.append(index + m)  # Down
+    return result
 
 
-def solve(k, array, left, right):
-    if left >= right:
-        return
-    med1, med2 = partition(array, left, right)
-    if k < med1:
-        solve(k, array, left, med1 - 1)
-    elif k > med2:
-        solve(k, array, med2 + 1, right)
+def get_not_visited_neighbors(current, n, m, visited):
+    neighbors = get_neighbors(current, n, m)
+    return [neighbor for neighbor in neighbors if not visited[neighbor]]
+
+
+def get_min_available(available, weights):
+    min_available = min(available, key=lambda index: weights[index])
+    available.remove(min_available)
+    return min_available
+
+
+def solve(matrix, n, m):
+    available = []
+    visited = [False]*n*m
+    weights = [float('inf')]*n*m
+    weights[0] = matrix[0]
+    current = 0
+
+    while current != n*m - 1:
+        visited[current] = True
+        neighbors = get_not_visited_neighbors(current, n, m, visited)
+        for neighbor in neighbors:
+            new_weight = weights[current] + matrix[neighbor]
+            weights[neighbor] = min(weights[neighbor], new_weight)
+            if not visited[neighbor] and neighbor not in available:
+                available.append(neighbor)
+        current = get_min_available(available, weights)
+
+    return weights[current]
 
 
 def main():
-    _, k = [int(x) for x in input().rstrip().split()]
-    array = [int(x) for x in input().rstrip().split()]
-    solve(k, array, 0, len(array) - 1)
-    print(array[k])
+    n, m = [int(x) for x in input().rstrip().split()]
+    matrix = []
+    for _ in range(n):
+        row = [int(cell) for cell in input().rstrip().split()]
+        matrix.extend(row)
+    print(solve(matrix, n, m))
 
 if __name__ == '__main__':
     main()

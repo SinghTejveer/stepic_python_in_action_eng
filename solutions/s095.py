@@ -1,72 +1,37 @@
-"""Huffman decoding
+# pylint: disable=invalid-sequence-index
 
-Restore the string by its code and the prefix-free code of symbols.
+"""Pairwise different summands
 
-The first line of the input file specifies the two integers k and l separated
-by a space — the amount of various characters in the string and the size of the
-resulting encoded string, accordingly. The next k lines contain letter codes in
-the "letter: code" format. None of the codes is a prefix of another one.
-Letters can be listed in any order. Letters can be only the lowercase letters
-of the Latin alphabet; each of these letters occurs in the string at least once.
-Finally, the last line contains an encoded string. The original string and the
-codes of all the letters are not empty. The specified code is that a coded
-string has the minimum possible size.
-
-In the first line of the output file output the string s. It should consist of
-the lowercase letters of the Latin alphabet. It is guaranteed that the length
-of the correct answer does not exceed 104 symbols.
+Given an integer 1 <= n <= 109 find the maximal number k such that n can be
+represented as a sum of pairwise different positive integers. In the first
+line output k, in the next line output k summands.
 """
 
-import sys
+from typing import List
 
 
-class Tree(object):
-
-    def __init__(self):
-        self.left = None
-        self.right = None
-        self.value = None
-
-    def update(self, value, path):
-        head = self
-        for code in path:
-            if code == '0':
-                if head.left is None:
-                    head.left = Tree()
-                head = head.left
-            else:
-                if head.right is None:
-                    head.right = Tree()
-                head = head.right
-        head.value = value
-
-    def decode(self, cipher):
-        message = ''
-        head = self
-
-        for code in cipher:
-            if code == '0':
-                head = head.left
-            else:
-                head = head.right
-            if head.value:
-                message += head.value
-                head = self
-        return message
+def solve(num: int) -> List[int]:
+    i = 1
+    summands = []
+    while num != 0:
+        if num <= 2*i:
+            summands.append(num)
+            num = 0
+        else:
+            summands.append(i)
+            num -= i
+        i += 1
+    return summands
 
 
 def main():
-    cipher = ''
-    tree = Tree()
+    num = int(input().rstrip())
+    result = solve(num)
 
-    _ = input()
-    for line in sys.stdin:
-        try:
-            letter, code = line.rstrip().split(': ')
-            tree.update(letter, code)
-        except ValueError:
-            cipher = line.rstrip()
-    print(tree.decode(cipher))
+    print(len(result))
+    for item in result:
+        print(item, end=' ')
+
 
 if __name__ == '__main__':
     main()

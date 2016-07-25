@@ -1,26 +1,42 @@
 """
-At some point, you got tired of using the file names with spaces and you have
-decided to write a program that renames all files that contain spaces in their
-names by replacing the groups of spaces by the underscore symbol "_".
+In the internet, each computer is assigned a four-byte code (IP address),
+which is usually written as four numbers, each of which can take the values
+from 0 to 255, separated by periods. Below are the examples of the correct
+IP addresses:
 
-First, you need to write a program that reads the string and replaces the group
-of white space characters by underscore symbols.
+127.0.0.0
+192.168.0.1
+255.0.255.255
 
-Input format:
-Single line, containing arbitrary symbols, including spaces.
+Write a program to determine whether the specified spring is a correct IP
+address.
 
-Output format:
-Modified string.
+The program should take a string of arbitrary characters as input. If this
+string is a correct record of an IP address - output YES, otherwise - output NO.
+
+Note
+
+In order to convert string to number it is convenient to use the int function,
+which takes one string as an argument and returns a number.
 """
 
 
-def solve(filename: str) -> str:
-    return '_'.join(filename.split())
+def solve(ipv4: str) -> bool:
+    parts = ipv4.split('.')
+    if len(parts) != 4:
+        return False
+    for part in parts:
+        try:
+            if not 0 <= int(part) <= 255:
+                return False
+        except ValueError:
+            return False
+    return True
 
 
 def main():
-    filename = input().rstrip()
-    print(solve(filename))
+    ipv4 = input().rstrip()
+    print('YES' if solve(ipv4) else 'NO')
 
 if __name__ == '__main__':
     main()
