@@ -1,16 +1,20 @@
+from collections import Counter
 import pytest
 
-from solutions.s092 import solve
+from solutions.s093 import encode
 
 
 EXAMPLES = (
-    ('capacity', 'items', 'expected'),
+    ('frequency', 'expected'),
     [
-        (50, [(60, 20), (100, 50), (120, 30)], 180),
+        (Counter('a'),
+         [['a', '0']]),
+        (Counter('abacabad'),
+         [['a', '0'], ['b', '10'], ['c', '110'], ['d', '111']])
     ]
 )
 
 
 @pytest.mark.parametrize(*EXAMPLES)
-def test_returns_correct_result(capacity, items, expected):
-    assert solve(capacity, items) == expected
+def test_returns_correct_result(frequency, expected):
+    assert encode(frequency) == expected

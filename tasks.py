@@ -38,7 +38,7 @@ def syntax(ctx):
 
 @task
 def new(ctx, number):
-    filename = 's' + number
+    filename = 's' + number.zfill(3)
     solution_path = os.path.join('solutions', filename + '.py')
     test_path = os.path.join('tests', 'solutions', 'test_' + filename + '.py')
 

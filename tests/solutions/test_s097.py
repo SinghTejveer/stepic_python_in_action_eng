@@ -1,19 +1,17 @@
 import pytest
 
-from solutions.s096 import solve
+from solutions.s097 import solve
 
 
 EXAMPLES = (
-    ('array', 'expected'),
+    ('k', 'array', 'expected'),
     [
-        ([2, 3, 9, 2, 2], 1),
-        ([1, 2, 3, 4, 5], 0),
-        ([1, 1, 1, 2, 3, 4], 0),
-        ([2, 989878533, 387770525, 2, 2, 2, 2, 66964391, 2, 944508853], 1),
+        (0, [3, 6, 5, 7, 2, 9, 8, 10, 4, 1], 1),
     ]
 )
 
 
 @pytest.mark.parametrize(*EXAMPLES)
-def test_returns_correct_result(array, expected):
-    assert solve(array) == expected
+def test_returns_correct_result(k, array, expected):
+    solve(k, array, 0, len(array) - 1)
+    assert array[k] == expected

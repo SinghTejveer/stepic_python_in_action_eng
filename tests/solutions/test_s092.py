@@ -1,17 +1,16 @@
 import pytest
 
-from solutions.s091 import solve
+from solutions.s092 import solve
 
 
 EXAMPLES = (
-    ('intervals', 'expected'),
+    ('capacity', 'items', 'expected'),
     [
-        ([(1, 3), (2, 5), (3, 6)], [3]),
-        ([(4, 7), (1, 3), (2, 5), (5, 6)], [3, 6]),
+        (50, [(60, 20), (100, 50), (120, 30)], 180),
     ]
 )
 
 
 @pytest.mark.parametrize(*EXAMPLES)
-def test_returns_correct_result(intervals, expected):
-    assert solve(intervals) == expected
+def test_returns_correct_result(capacity, items, expected):
+    assert solve(capacity, items) == expected

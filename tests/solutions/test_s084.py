@@ -1,21 +1,18 @@
 import pytest
 
-from solutions.s083 import solve
+from solutions.s084 import solve
 
 
 EXAMPLES = (
-    ('numbers', 'expected'),
+    ('filename', 'expected'),
     [
-        ([30, 32, 43, 65, -32, 54, 34, -23, 11, 9],
-         [39, 43, 20, 99, 22]),
-        ([1, 2, 3, 4, 5],
-         [6, 6, 3]),
-        ([123],
-         [123])
+        ('my file name.txt', 'my_file_name.txt'),
+        ('string     with        multi spaces', 'string_with_multi_spaces'),
+        ('single', 'single'),
     ]
 )
 
 
 @pytest.mark.parametrize(*EXAMPLES)
-def test_returns_correct_result(numbers, expected):
-    assert solve(numbers) == expected
+def test_returns_correct_result(filename, expected):
+    assert solve(filename) == expected

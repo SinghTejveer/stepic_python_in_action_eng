@@ -1,17 +1,19 @@
 import pytest
 
-from solutions.s095 import solve
+from solutions.s096 import solve
 
 
 EXAMPLES = (
-    ('num', 'expected'),
+    ('array', 'expected'),
     [
-        (4, [1, 3]),
-        (6, [1, 2, 3]),
+        ([2, 3, 9, 2, 2], 1),
+        ([1, 2, 3, 4, 5], 0),
+        ([1, 1, 1, 2, 3, 4], 0),
+        ([2, 989878533, 387770525, 2, 2, 2, 2, 66964391, 2, 944508853], 1),
     ]
 )
 
 
 @pytest.mark.parametrize(*EXAMPLES)
-def test_returns_correct_result(num, expected):
-    assert solve(num) == expected
+def test_returns_correct_result(array, expected):
+    assert solve(array) == expected

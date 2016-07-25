@@ -1,21 +1,17 @@
 import pytest
 
-from solutions.s085 import solve
+from solutions.s086 import solve
 
 
 EXAMPLES = (
-    ('ipv4', 'expected'),
+    ('text', 'expected'),
     [
-        ('127.0.0.1', True),
-        ('256.0.0.1', False),
-        ('255.0.0.1', True),
-        ('1.2.3', False),
-        ('1.2.3.4.5', False),
-        ('-1.2.3.4', False)
+        ('Beautiful is better than ugly. Explicit is better than implicit.',
+         [(2, 2), (4, 2), (5, 1), (6, 2), (8, 1), (9, 2)]),
     ]
 )
 
 
 @pytest.mark.parametrize(*EXAMPLES)
-def test_returns_correct_result(ipv4, expected):
-    assert solve(ipv4) == expected
+def test_returns_correct_result(text, expected):
+    assert solve(text) == expected

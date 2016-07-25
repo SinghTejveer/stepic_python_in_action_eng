@@ -1,18 +1,21 @@
 import pytest
 
-from solutions.s084 import solve
+from solutions.s085 import solve
 
 
 EXAMPLES = (
-    ('filename', 'expected'),
+    ('ipv4', 'expected'),
     [
-        ('my file name.txt', 'my_file_name.txt'),
-        ('string     with        multi spaces', 'string_with_multi_spaces'),
-        ('single', 'single'),
+        ('127.0.0.1', True),
+        ('256.0.0.1', False),
+        ('255.0.0.1', True),
+        ('1.2.3', False),
+        ('1.2.3.4.5', False),
+        ('-1.2.3.4', False)
     ]
 )
 
 
 @pytest.mark.parametrize(*EXAMPLES)
-def test_returns_correct_result(filename, expected):
-    assert solve(filename) == expected
+def test_returns_correct_result(ipv4, expected):
+    assert solve(ipv4) == expected
