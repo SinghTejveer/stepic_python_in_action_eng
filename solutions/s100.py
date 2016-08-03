@@ -1,3 +1,5 @@
+# pylint: disable=too-few-public-methods
+
 """Calculator
 
 You have a basic calculator, which has only three operations with the current
