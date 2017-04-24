@@ -51,11 +51,7 @@ FUNCS = {
 def calculator(num1, num2, math_operator):
     try:
         result = FUNCS[math_operator](num1, num2)
-        if result % 1 != 0:
-            return str(result)
-        else:
-            return '%0.1f' % result
-
+        return str(result) if result % 1 else '%0.1f' % result
     except ZeroDivisionError:
         return 'Division by 0!'
 

@@ -65,10 +65,7 @@ def square(room_type, data):
         s = a*b
     else:
         s = 0
-    if s % 1 == 0:
-        return '%0.1f' % s if s else '0'
-    else:
-        return str(s)
+    return str(s) if s % 1 else '%0.1f' % s if s else '0'
 
 
 def main():

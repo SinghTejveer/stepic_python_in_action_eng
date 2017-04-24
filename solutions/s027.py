@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name, too-many-boolean-expressions,
+# pylint: disable=invalid-name, too-many-boolean-expressions, no-else-return
 # pylint: disable=too-many-branches, too-many-return-statements
 
 """

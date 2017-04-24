@@ -23,10 +23,7 @@ def is_triangle(side1, side2, side3):
     shortest = min(side1, side2, side3)
     middle = sum(sides) - longest - shortest
 
-    if middle > longest - shortest:
-        return 'YES'
-    else:
-        return 'NO'
+    return 'YES' if middle > longest - shortest else 'NO'
 
 
 def main():

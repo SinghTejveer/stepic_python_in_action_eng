@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name, no-else-return
 
 """
 Given real numbers a, b, c, where a ≠ 0.
