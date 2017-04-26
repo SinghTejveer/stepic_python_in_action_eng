@@ -1,5 +1,4 @@
 import os
-import sys
 
 import itertools
 from invoke import task
@@ -27,7 +26,7 @@ def syntax(ctx):
 
 
 @task
-def new(ctx, number):
+def new(_, number):
     filename = 's' + number.zfill(3)
     solution_path = os.path.join('solutions', filename + '.py')
     test_path = os.path.join('tests', 'solutions', 'test_' + filename + '.py')
@@ -48,7 +47,7 @@ def new(ctx, number):
 
 
 @task
-def rename(ctx):
+def rename(_):
     proceed = input('Are you sure? (yes/no): ')
     if not proceed.lower() == 'yes':
         print('Aborted...')
