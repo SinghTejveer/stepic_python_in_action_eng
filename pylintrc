@@ -1,5 +1,6 @@
 [MESSAGES CONTROL]
-disable=locally-disabled, missing-docstring, duplicate-code,invalid-sequence-index
+disable=locally-disabled, missing-docstring, duplicate-code,invalid-sequence-index,
+  no-else-return
 
 [REPORTS]
 # Simplify pylint reports
