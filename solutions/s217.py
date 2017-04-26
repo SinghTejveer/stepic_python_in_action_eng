@@ -19,16 +19,16 @@ Sample Output 2:
 
 def solve(num: float, exp: int) -> float:
     """Calculate num**exp."""
-    result = 1
     if exp < 0:
-        while exp < 0:
-            exp += 1
-            result /= num
+        return solve(1 / num, -exp)
+    elif exp == 0:
+        return 1
+    elif exp == 1:
+        return num
+    elif exp % 2 == 0:
+        return solve(num * num, exp // 2)
     else:
-        while exp > 0:
-            exp -= 1
-            result *= num
-    return result
+        return num * solve(num * num, (exp - 1) // 2)
 
 
 def main():
